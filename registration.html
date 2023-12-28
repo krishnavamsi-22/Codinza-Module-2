@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <style>
+        .div1 {
+            text-align: center;
+            height: 350px;
+        }
+        .div2 {
+            background-color: rgb(192, 186, 186);
+            width: 500px;
+            display: flexbox;
+            margin-left: 500px;
+            border-radius: 2%;
+            padding: 10px;
+        }
+        .div3 {
+            margin-left: -250px;
+            line-height: 275%;
+        }
+        .div4 {
+            margin-left: 140px;
+            margin-top: -175px;
+            line-height: 275%;
+        }
+        #name1 {
+            margin-left: -50px;
+        }
+        #email1 {
+            margin-left: -50px;
+        }
+        #password1 {
+            margin-left: -30px;
+        }
+        #dob1 {
+            margin-left: -10px;
+        }
+        #name,
+        #email,
+        #password,
+        #dob {
+            border-radius: 5px;
+            width: 150px;
+            height: 30px;
+        }
+        #acceptTerms1 {
+            margin-left: -145px;
+        }
+        .submit {
+            margin-left: -290px;
+            margin-top: 20px;
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+        }
+        input#name:invalid:focus {
+            border: 1px solid red;
+        }
+        input#email:invalid:focus {
+            border: 1px solid red;
+        }
+        .entries {
+            border: 2px solid black;
+            border-radius: 7px;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Form</title>
+</head>
+<body>
+    <div class="div2">
+        <div class="div1">
+            <form class="myForm" id="myForm">
+                <h1 class="h2">Registration Form</h1>
+                <div class="div3">
+                    <label for="name">Name</label><br>
+                    <label for="email">Email</label><br>
+                    <label for="password">Password</label><br>
+                    <label for="dob">Date of Birth</label><br>
+                </div>
+                <div class="div4">
+                    <input required type="text" id="name" name="name" value="" placeholder="Enter full name"><br>
+                    <input required type="email" id="email" name="email" value="" placeholder="Enter email"><br>
+                    <input type="password" id="password" name="password" value="" placeholder="Enter password"><br>
+                    <input type="date" id="dob" name="dob" value=""><br>
+                </div>
+                <br>
+                <label for="acceptTerms">Accept Terms & Conditions</label>
+                <input type="checkbox" id="acceptTerms" name="acceptTerms"><br>
+                <button type="button" class="submit" onclick="onSubmit()">Submit</button>
+            </form>
+        </div>
+        <div class="entries">
+            <table class="entry" cellspacing="0" cellpadding="20" id="entryTable">
+                <tr>
+                    <th colspan="5"><h1>Entries</h1></th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>DOB</th>
+                    <th>Accepted terms?</th>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript">
+            function onSubmit() {
+                var name = document.getElementById("name").value;
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var dob = document.getElementById("dob").value;
+                var acceptTerms = document.getElementById("acceptTerms").checked; // Use checked property for checkbox
+
+                localStorage.setItem("Name", name);
+                localStorage.setItem("Email", email);
+                localStorage.setItem("Password", password);
+                localStorage.setItem("DateOfBirth", dob);
+                localStorage.setItem("AcceptedTerms", acceptTerms);
+
+                const year = new Date().getFullYear();
+                var birthYear = new Date(dob).getFullYear();
+
+                var age = year - birthYear;
+                if (age >= 18 && age <= 55) {
+                    var table = document.getElementById("entryTable"); // Changed ID to match HTML
+                    var row = table.insertRow();
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    var cell3 = row.insertCell(2);
+                    var cell4 = row.insertCell(3);
+                    var cell5 = row.insertCell(4);
+                    cell1.innerHTML = localStorage.getItem("Name");
+                    cell2.innerHTML = localStorage.getItem("Email");
+                    cell3.innerHTML = localStorage.getItem("Password");
+                    cell4.innerHTML = localStorage.getItem("DateOfBirth");
+                    cell5.innerHTML = localStorage.getItem("AcceptedTerms");
+                    document.getElementById("myForm").reset();
+                } else {
+                    alert("Age should be in between 18 and 55");
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
